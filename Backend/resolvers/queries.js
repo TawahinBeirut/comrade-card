@@ -11,7 +11,7 @@ const Users = queryField("Users",{
 
 const user = queryField("User",{
     type : nullable(User),
-    resolve: async (roor,args,ctx) => {
+    resolve: async (root,args,ctx) => {
         return null;
     }
 })
