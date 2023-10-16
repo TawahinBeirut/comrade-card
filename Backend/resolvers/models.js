@@ -30,7 +30,7 @@ const Basket = objectType({
     name : 'Basket',
     definition(t){
         t.id("id")
-        t.list.field('products')
+        t.list.field('products',{type: Product})
     }
 })
 
@@ -41,7 +41,7 @@ const Command = objectType({
     definition(t){
         t.id("id")
         t.id("UserId")
-        t.list.field("products")
+        t.list.field("products",{type: Product})
     }
 })
 
@@ -51,7 +51,7 @@ const Categorie = objectType({
     definition(t){
         t.id("id")
         t.int("Score")
-        t.list.field("products")
+        t.list.field("products",{type: Product})
         t.int("Stock")
     }
 })
