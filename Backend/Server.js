@@ -4,24 +4,23 @@ require('dotenv').config();
 const { ApolloServer} = require('apollo-server-express');
 const schema = require('./schema');
 
-const server = new ApolloServer({schema});
 const app = express();
 const PORT = process.env.DEV_PORT;
 
 
-const startServer = async () => {
+const startServer = async (server) => {
     await server.start();
 };
 
-startServer()
-.then(() => {
-    console.log("Serveur demarré");
-
-    server.applyMiddleware({app});
-    app.listen(PORT,() => {
-        console.log("Listening ... ");
-    })
+app.get('/graphql',(req,res)=> {
+    const server = new ApolloServer({schema,context : {res}})
+    startServer(server)
+    .then(() => {
+        server.applyMiddleware({app});
+        console.log("Serveur appolo demarré")})
+    .catch(() => {console.log("Echec demarrage appolo")})
 })
-.catch((err) => {
-    console.log("Echec du démarrage : " + err)
+
+app.listen(PORT,() => {
+    console.log("Listening ... ");
 })

@@ -56,6 +56,14 @@ const Categorie = objectType({
     }
 })
 
+const Res = objectType({
+    name : 'Res',
+    definition(t){
+        t.int("Statut")
+        t.string("Message")
+        t.list.field("data",{type: User})
+    }
+})
 module.exports = {
-    User,Product,Basket,Command,Categorie
+    User,Product,Basket,Command,Categorie,Res
 }

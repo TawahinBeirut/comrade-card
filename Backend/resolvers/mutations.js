@@ -1,11 +1,13 @@
 const {mutationField,resolve,nullable, stringArg, nonNull, intArg} = require("nexus");
-const {User} = require("./models");
+const {Res,User} = require("./models");
 const prisma = require("../contexts");
+const bcrypt = require('bcrypt');
+const salt = 10;
 
-
-// Créer un utilisateur
-const createUser = mutationField(("CreateUser"),{
-    type : nullable(User),
+// Users Routes
+// Créer un User
+const createUser = mutationField(("Register"),{
+    type : nullable(Res),
     args: {
         Name : nonNull(stringArg()),
         Email : nonNull(stringArg()),
@@ -13,12 +15,41 @@ const createUser = mutationField(("CreateUser"),{
         Score : nonNull(intArg())
     },
     resolve: async (root,args) => {
-        const result = prisma.user.create({
-            data: {
+        bcrypt.hash(args.Password,salt,(err,hash) => {
+            if (err) return {Statut : 0 , Message : "Erreur au hachage du mot de passe"}
+            const result = prisma.user.create({
+                data: {
+                    ...args
+                }
+        })
+        if(result instanceof null){
+            return {Statut : 0,Message : "Erreur lors de l'insertion des données"}
+        }
+        else {
+            return {Statut : 200, Message : "Succés, Utilisateur creé", data: result}
+        }
+    })}
+})
+
+//Update un User 
+const updateUser = mutationField("UpdateUser",{
+    type: nullable(User),
+    args: {
+        id : nonNull(intArg()),
+        Name: nonNull(stringArg()),
+        Password : nonNull(stringArg()),
+        Score : nonNull(intArg())
+    },  
+    resolve: async (root,args) => {
+        const result = prisma.user.update({
+            where:{
+                id : args.id
+            },
+            data:{
                 ...args
             }
-    })  
-        return result
+        })
+        return result;
     }
 })
 // Delete un User
@@ -37,6 +68,10 @@ const deleteUser = mutationField(("DeleteUser"),{
     }
 })
 
+
+
+// Get
 module.exports = {
-    createUser,deleteUser
+    createUser,deleteUser,updateUser,
+
 }

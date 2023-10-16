@@ -2,7 +2,6 @@ const {makeSchema, objectType, queryField, arg, mutationField, nullable, nonNull
 const Models = require("./resolvers/models");
 const Mutations = require("./resolvers/mutations");
 const Queries = require("./resolvers/queries");
-const Context = require("./contexts")
 
 
 const schema = makeSchema({
