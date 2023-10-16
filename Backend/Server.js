@@ -6,21 +6,18 @@ const schema = require('./schema');
 
 const app = express();
 const PORT = process.env.DEV_PORT;
+const server = new ApolloServer({schema})
 
-
-const startServer = async (server) => {
+const startServer = async () => {
     await server.start();
 };
 
-app.get('/graphql',(req,res)=> {
-    const server = new ApolloServer({schema,context : {res}})
-    startServer(server)
+startServer()
     .then(() => {
         server.applyMiddleware({app});
         console.log("Serveur appolo demarré")})
     .catch(() => {console.log("Echec demarrage appolo")})
-})
 
-app.listen(PORT,() => {
+    .finally(() => {app.listen(PORT,() => {
     console.log("Listening ... ");
-})
+})})

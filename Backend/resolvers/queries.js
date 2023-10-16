@@ -1,7 +1,8 @@
-const {list,nonNull,nullable,queryField, intArg, stringArg} = require("nexus");
+const {list,nonNull,nullable,queryField, intArg, stringArg, arg} = require("nexus");
 const {User, Res} = require('./models');
 const prisma = require('../contexts');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 // Get All 
 const Users = queryField("Users",{
@@ -27,38 +28,58 @@ const user = queryField("User",{
         return result
     }
 })
+
 // Fonction Login
 const Login = queryField("Login",{
     type: nullable(Res),
     args: {
-        id: nonNull(intArg()),
         Email : nonNull(stringArg()),
         Password: nonNull(stringArg())
     },
-    resolve: async(root,args) => {
+    resolve: async(root,args,) => {
         const result = await prisma.user.findUnique({
             where: {
-                id: args.id
+                Email: args.Email
             }
         })
-        if (result instanceof null){
+        if (result == null){
             return {Statut : 0, Message : "Erreur lors de la recherche de mail"}
         }
         else{
-            bcrypt.compare(args.Password,result.Password,(err,response) => {
-                if (err) return {Statut : 0,Message : "Erreur à la recherche de mot de passe"}
-                if(response){
-                    // Envoyer le cookie
-                    res.cookie
+            const result2 = bcrypt.compare(args.Password,result.Password)
+            .then(res => {
+                if(res){
+                    const token = jwt.sign({name: result.Name},process.env.TOKEN_SECRET_KEY,{expiresIn : '1d'})
+                    return {Statut: 200, Message : "L'operation a reussi",Cookie: token,data : [result]}
                 }
-                else{
-                    return {Statut : 0,Message : "Mot de passe non valide"}
-                }
+                else return {Statut : 0,Message : "Mot de passe non valide"}
             })
+            .catch(err => {return {Statut: 0, Message: err}})
+            .finally(mess => {
+                return mess
+            })
+            return result2;
         }
     }
 })
 
+const verifyUser = queryField('VerifyUser',{
+    type:nullable(Res),
+    args:{
+        Cookie : nonNull(stringArg())
+    },
+    resolve: async (root,args) => {
+        jwt.verify(args.Cookie,process.env.TOKEN_SECRET_KEY,(err,decoded) => {
+            if (err){
+                return {Statut : 0,Message : "Token non valable"}
+            }
+            else{
+                return {Statut: 200, Message : "L'opearation a reussi", Cookie: decoded}
+            }
+        })
+    }
+})
+
 module.exports = {
-    Users,user
+    Users,user,Login,verifyUser
 }

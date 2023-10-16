@@ -61,6 +61,7 @@ const Res = objectType({
     definition(t){
         t.int("Statut")
         t.string("Message")
+        t.string("Cookie")
         t.list.field("data",{type: User})
     }
 })
