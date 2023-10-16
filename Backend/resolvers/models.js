@@ -1,4 +1,5 @@
 const {objectType} = require("nexus");
+const { NexusInterfaceTypeDef } = require("nexus/dist/core");
 
 // User 
 const User = objectType({
@@ -56,15 +57,25 @@ const Categorie = objectType({
     }
 })
 
-const Res = objectType({
-    name : 'Res',
+const ResUser = objectType({
+    name : 'ResUser',
     definition(t){
         t.int("Statut")
         t.string("Message")
         t.string("Cookie")
-        t.list.field("data",{type: User})
+        t.list.field("data",{type:User})
     }
 })
+const ResBasket = objectType({
+    name : 'ResBasket',
+    definition(t){
+        t.int("Statut")
+        t.string("Message")
+        t.string("Cookie")
+        t.list.field("data",{type:Basket})
+    }
+})
+
 module.exports = {
-    User,Product,Basket,Command,Categorie,Res
+    User,Product,Basket,Command,Categorie,ResUser,ResBasket
 }

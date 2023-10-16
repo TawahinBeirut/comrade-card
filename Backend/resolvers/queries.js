@@ -1,5 +1,5 @@
 const {list,nonNull,nullable,queryField, intArg, stringArg, arg} = require("nexus");
-const {User, Res} = require('./models');
+const {User, ResUser,ResBasket} = require('./models');
 const prisma = require('../contexts');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
@@ -31,7 +31,7 @@ const user = queryField("User",{
 
 // Fonction Login
 const Login = queryField("Login",{
-    type: nullable(Res),
+    type: nullable(ResUser),
     args: {
         Email : nonNull(stringArg()),
         Password: nonNull(stringArg())
@@ -64,22 +64,33 @@ const Login = queryField("Login",{
 })
 
 const verifyUser = queryField('VerifyUser',{
-    type:nullable(Res),
+    type:nullable(ResUser),
     args:{
         Cookie : nonNull(stringArg())
     },
     resolve: async (root,args) => {
-        jwt.verify(args.Cookie,process.env.TOKEN_SECRET_KEY,(err,decoded) => {
-            if (err){
-                return {Statut : 0,Message : "Token non valable"}
-            }
-            else{
-                return {Statut: 200, Message : "L'opearation a reussi", Cookie: decoded}
-            }
-        })
+        try{
+        jwt.verify(args.Cookie,process.env.TOKEN_SECRET_KEY)
+        }
+        catch(err){return {Statut : 0}}
+        return {Statut : 200}
     }
 })
+// Fonction pour avoir tous les Paniers de la db
+const getBaskets = queryField('GetBaskets',{
+    type:nullable(ResBasket),
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.basket.findMany({})
+            return {Statut: 200, Message: "Recuperation des donnés ",data: result}
+        }
+        catch(err){return {Statut : 0 , Message : "Echec de la récuperation de données"}}
+    }
+})
+// Fonctions pour les Produits 
+
+// Fonction pour récuperer un prod
 
 module.exports = {
-    Users,user,Login,verifyUser
+    Users,user,Login,verifyUser,getBaskets
 }
