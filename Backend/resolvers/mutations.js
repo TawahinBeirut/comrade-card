@@ -1,5 +1,5 @@
 const {mutationField,resolve,nullable, stringArg, nonNull, intArg, arg, idArg} = require("nexus");
-const {ResUser,User, ResBasket} = require("./models");
+const {ResUser,User, ResBasket,ResProduct} = require("./models");
 const prisma = require("../contexts");
 const bcrypt = require('bcrypt');
 const saltRounds = 10
@@ -108,20 +108,30 @@ const deleteBasket = mutationField('DeleteAllBaskets',{
 
 // Fonction pour poster un produit
 const postProduct = mutationField("PostProduct",{
-    type: nullable(ResUser),
+    type: nullable(ResProduct),
     args: {
-        name: nonNull(stringArg()),
-        description : nonNull(stringArg()),
-        sellerid : nonNull(idArg())
+        Name: nonNull(stringArg()),
+        Description : nonNull(stringArg()),
+        Sellerid : nonNull(intArg())
     },
     resolve: async(root,args) => {
-        // On récuperer le nombre de 
+        try{
+            const result = await prisma.product.create({
+                data:{
+                    Name: args.Name,
+                    Description: args.Description,
+                    SellerId: args.Sellerid
+                }
+            })
+            return {Statut : 200, Message : "L'Insertion des données a réussi",data: [result]}
+        }
+        catch(err){ return {Statut : 0, Message : err}}
     }
 })
 
 
 // Get
 module.exports = {
-    createUser,deleteUser,updateUser,deleteAllUsers,deleteBasket
-
+    createUser,deleteUser,updateUser,deleteAllUsers,deleteBasket,
+    postProduct
 }

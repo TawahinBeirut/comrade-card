@@ -21,7 +21,7 @@ const Product = objectType({
         t.string("Name")
         t.int("Statut")
         t.string("Description")
-        t.id("SellerId")
+        t.int("SellerId")
         t.int("NbBaskets")
     }
 })
@@ -75,7 +75,17 @@ const ResBasket = objectType({
         t.list.field("data",{type:Basket})
     }
 })
+const ResProduct = objectType({
+    name : 'ResProduct',
+    definition(t){
+        t.int("Statut")
+        t.string("Message")
+        t.string("Cookie")
+        t.list.field("data",{type:Product})
+    }
+})
 
 module.exports = {
-    User,Product,Basket,Command,Categorie,ResUser,ResBasket
+    User,Product,Basket,Command,Categorie,
+    ResUser,ResBasket,ResProduct
 }

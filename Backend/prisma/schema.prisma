@@ -21,7 +21,7 @@ model Product{
   Name String
   Statut Int @default(1)
   Description String
-  SellerId Int @unique
+  SellerId Int 
   NbBaskets Int @default(0)
 }
 model Basket{
