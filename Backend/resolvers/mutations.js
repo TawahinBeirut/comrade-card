@@ -235,7 +235,7 @@ const deleteAllProducts = mutationField("DeleteAllProducts",{
     resolve: async (root,args) => {
         try{
             const result = await prisma.product.deleteMany({})
-            return {Statut: 200, Message : "Tous les produits ont bien étés supprimés",data: [result]}
+            return {Statut: 200, Message : "Tous les produits ont bien étés supprimés",data: result}
         }
         catch(err){return {Statut : 0, Message : err}}
     }
@@ -361,7 +361,8 @@ const deleteAllProductsBasket = mutationField("DeleteAllProductsBaket",{
                     }
                 }
             })
-            return {Statut: 200,Message : "La liste a bien étée supprimée",data: [result]}
+            return {Statut: 200,Message : "La liste a bien étée supprimée",data: result
+        }
         }
         catch(err){return {Statut : 0,Message : "Tous les produits du panier ont été supprimés"}}
     }
@@ -410,7 +411,7 @@ const deleteAllCategories = mutationField('DeleteAllCategories',{
     resolve: async(root,args) => {
         try{
             const result = await prisma.categorie.deleteMany({});
-            return {Statut : 200,Message : "La supression des données a reussi",data : [result]}
+            return {Statut : 200,Message : "La supression des données a reussi",data : result}
         }
         catch(err){return {Statut : 0, Message : err}}
     }
