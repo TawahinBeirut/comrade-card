@@ -1,5 +1,5 @@
 const {list,nonNull,nullable,queryField, intArg, stringArg, arg} = require("nexus");
-const {User, ResUser,ResBasket, ResProduct} = require('./models');
+const {User, Product,ResUser,ResBasket, ResProduct, ResCommand, ResCategorie} = require('./models');
 const prisma = require('../contexts');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
@@ -80,7 +80,7 @@ const verifyUser = queryField('VerifyUser',{
 const getBasket = queryField('Basket',{
     type: nullable(ResBasket),
     args:{
-        id : id
+        id : nonNull(intArg())
     },
     resolve: async (root,args) => {
         try{
@@ -99,8 +99,8 @@ const getBaskets = queryField('Baskets',{
     type:nullable(ResBasket),
     resolve: async (root,args) => {
         try{
-            const result = await prisma.basket.findMany({})
-            return {Statut: 200, Message: "Recuperation des donnés ",data: [result]}
+            const result = await prisma.basket.findMany()
+            return {Statut: 200, Message: "Recuperation des donnés ",data: result}
         }
         catch(err){return {Statut : 0 , Message : err}}
     }
@@ -110,8 +110,8 @@ const getProducts = queryField('Products',{
     type: nullable(ResProduct),
     resolve: async(root,args) => {
         try{
-            const result = await prisma.product.findMany({})
-            return {Statut : 200 , Message : "Recuperation réussie",data : [result]}
+            const result = await prisma.product.findMany();
+            return {Statut : 200 , Message : "Recuperation réussie",data :result}
         }
         catch(err){return {Statut : 0 , Message :err}}
     }
@@ -134,11 +134,39 @@ const getProduct = queryField('Product',{
     }
 })
 
-// Fonction pour récuperer un produit en particulier
+//
+const getCommands = queryField('Commands',{
+    type: nullable(ResCommand),
+    args:{
+        idUser : nonNull(intArg())
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.command.findMany({
+                where:{
+                    UserId: args.idUser
+                }
+            })
+            return {Statut : 200, Message : "Recuperation des données réussie",data : result}
+        }
+        catch(err){return {Statut : 0,Message : err}}
+    }
+})
 
-// Fonction pour récuperer des produits en fonction de leur catégorrie
-
+const getCategories = queryField('Categories',{
+    type : nullable(ResCategorie),
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.categorie.findMany({})
+            return {Statut : 200, Message : "Recuperation des données réussie",data : result}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
 module.exports = {
-    Users,user,Login,verifyUser,getBaskets,
-    getProduct,getProducts
+    Users,user,Login,verifyUser,
+    getBaskets,getBasket,
+    getProduct,getProducts,
+    getCommands,
+    getCategories
 }

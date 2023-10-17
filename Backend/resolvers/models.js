@@ -1,5 +1,5 @@
 const {objectType} = require("nexus");
-const { NexusInterfaceTypeDef } = require("nexus/dist/core");
+const { NexusInterfaceTypeDef, intArg, nonNull } = require("nexus/dist/core");
 
 // User 
 const User = objectType({
@@ -23,6 +23,7 @@ const Product = objectType({
         t.string("Description")
         t.int("SellerId")
         t.int("NbBaskets")
+        t.list.field('Categorie',{type : nonNull('Int')})    
     }
 })
 
@@ -94,7 +95,7 @@ const ResCommand = objectType({
     }
 })
 const ResCategorie = objectType({
-    name : 'ResCommand',
+    name : 'ResCategorie',
     definition(t){
         t.int("Statut")
         t.string("Message")

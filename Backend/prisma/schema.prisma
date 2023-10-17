@@ -23,6 +23,7 @@ model Product{
   Description String
   SellerId Int 
   NbBaskets Int @default(0)
+  Categorie Int[] @default([])
 }
 model Basket{
   id Int @id
