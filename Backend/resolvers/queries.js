@@ -91,6 +91,8 @@ const getBaskets = queryField('GetBaskets',{
 
 // Fonction pour récuperer un produit en particulier
 
+// Fonction pour récuperer des produits en fonction de leur catégorrie
+
 module.exports = {
     Users,user,Login,verifyUser,getBaskets
 }

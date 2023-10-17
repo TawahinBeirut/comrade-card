@@ -1,5 +1,5 @@
 const {mutationField,resolve,nullable, stringArg, nonNull, intArg, arg, idArg} = require("nexus");
-const {ResUser,User, ResBasket,ResProduct,ResCommand, Product} = require("./models");
+const {ResUser,User, ResBasket,ResProduct,ResCommand, Product,ResCategorie} = require("./models");
 const prisma = require("../contexts");
 const bcrypt = require('bcrypt');
 const saltRounds = 10
@@ -204,7 +204,7 @@ const putStatutProduct = mutationField("PutStatutProduct",{
 
 
 // Fonction pour Incrementer/Decrementer le nombre de produits d'un Basket
-const UpdateNbBaskets = mutationField("UpdateNbBaskets",{
+const updateNbBaskets = mutationField("UpdateNbBaskets",{
     type: nullable(ResProduct),
     args:{
         id : nonNull(intArg()),
@@ -242,7 +242,7 @@ const deleteAllProducts = mutationField("DeleteAllProducts",{
 })
 
 // Fonction pour poster une commande
-const postCommand = mutationField({
+const postCommand = mutationField("PostCommand",{
     type: nullable(ResCommand),
     args:{
         UserId : nullable(intArg())
@@ -260,9 +260,167 @@ const postCommand = mutationField({
     }
 })
 // Fonction pour ajouter un produit à une commande
+const addProductCommand = mutationField("AddProductCommand",{
+    type: nullable(ResCommand),
+    args:{
+        id : nonNull(intArg()),
+        idProduct : nonNull(intArg()) 
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.command.update({
+                where:{
+                    id : args.id
+                },
+                data:{
+                    ProductsList:{
+                        push: args.idProduct
+                    }
+                }
+            })
+            return {Statut : 200, Message :"Le Produit a bien eté rajouté",data: [result]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
+
+const addProductBasket = mutationField("AddProductBasket",{
+    type: nullable(ResBasket),
+    args:{
+        id : nonNull(intArg()),
+        idProduct : nonNull(intArg()) 
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.basket.update({
+                where:{
+                    id : args.id
+                },
+                data:{
+                    ProductsList:{
+                        push: args.idProduct
+                    }
+                }
+            })
+            return {Statut : 200, Message :"Le Produit a bien eté rajouté",data: [result]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
+
+const deleteProductBasket = mutationField("DeleteProductBasket",{
+    type: nullable(ResBasket),
+    args:{
+        id : nonNull(intArg()),
+        idProduct : nonNull(intArg()) 
+    },
+    resolve: async (root,args) => {
+        try{
+
+            // Recuperer la liste de produits
+            const result = await prisma.basket.findUnique({
+                where:{
+                    id : args.id
+                }
+            })
+            let list = []
+            result.ProdutsList.forEach(element => {
+                if(element != args.idProduct){
+                    list.push(element)
+                }
+            });
+
+            const result2 = await prisma.basket.update({
+                where:{
+                    id : args.id
+                },
+                data:{
+                    ProductsList: list
+                }
+            })
+            return {Statut : 200, Message :"Le Produit a bien eté rajouté",data: [result2]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
+
+const deleteAllProductsBasket = mutationField("DeleteAllProductsBaket",{
+    type: nullable(ResBasket),
+    args:{
+        id: nonNull(intArg())
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.basket.update({
+                where:{
+                    id: args.id
+                },
+                data: {
+                    ProdutsList:{
+                        unset : true,
+                    }
+                }
+            })
+            return {Statut: 200,Message : "La liste a bien étée supprimée",data: [result]}
+        }
+        catch(err){return {Statut : 0,Message : "Tous les produits du panier ont été supprimés"}}
+    }
+})
+
+// Categories
+// Fonction pour ajouter une catégorie
+const postCategorie = mutationField("PostCategorie",{
+    type: nullable(ResCategorie),
+    args:{
+        Score: nonNull(intArg())
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.categorie.create({
+                data:{
+                    Score: args.Score
+                }
+            })
+            return {Statut : 200,Message: "L'insertion des données a réussi",data: [result]}
+        }
+        catch(err){return { Statut : 0,Message : err}}
+    }
+})
+
+// Fonction pour dellete une catégorie
+const deleteCategorie = mutationField('DeleteCategorie',{
+    type: nullable(ResCategorie),
+    args:{
+        id : nonNull(intArg())
+    },
+    resolve: async(root,args) => {
+        try{
+            const result = await prisma.categorie.delete({
+                where:{
+                    id : args.id
+                }
+            })
+            return {Statut : 200,Message : "La supression des données a reussi",data : [result]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
+const deleteAllCategories = mutationField('DeleteAllCategories',{
+    type: nullable(ResCategorie),
+    resolve: async(root,args) => {
+        try{
+            const result = await prisma.categorie.deleteMany({});
+            return {Statut : 200,Message : "La supression des données a reussi",data : [result]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
 
 // Get
 module.exports = {
-    createUser,deleteUser,updateUser,deleteAllUsers,deleteBasket,
-    postProduct
+    createUser,deleteUser,updateUser,deleteAllUsers,
+    addProductBasket,deleteProductBasket,deleteAllProductsBasket,deleteBasket,
+    postProduct,putProduct,deleteAllProducts,deleteProduct,putStatutProduct,updateNbBaskets,
+    postCommand,addProductCommand,  
+    postCategorie,deleteCategorie,deleteAllCategories
 }

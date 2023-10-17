@@ -36,6 +36,4 @@ model Command{
 model Categorie{
   id Int @id @default(autoincrement())
   Score Int
-  ProductsList Int[] @default([])
-  Stock Int @default(0)
 }
