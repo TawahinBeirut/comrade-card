@@ -1,5 +1,5 @@
 const {mutationField,resolve,nullable, stringArg, nonNull, intArg, arg, idArg} = require("nexus");
-const {ResUser,User, ResBasket,ResProduct} = require("./models");
+const {ResUser,User, ResBasket,ResProduct,ResCommand, Product} = require("./models");
 const prisma = require("../contexts");
 const bcrypt = require('bcrypt');
 const saltRounds = 10
@@ -128,7 +128,138 @@ const postProduct = mutationField("PostProduct",{
         catch(err){ return {Statut : 0, Message : err}}
     }
 })
+// Fonction pour Modifier un produit
+const putProduct =  mutationField("PutProduct",{
+    type: nullable(ResProduct),
+    args: {
+        id : nonNull(intArg()),
+        Name: nonNull(stringArg()),
+        Description: nonNull(stringArg())
+    },
+    resolve: async(root,args) => {
+        try{
+            const result = await prisma.product.update({
+                where:{
+                    id: args.id,
+                },
+                data:{
+                    Name: args.Name,
+                    Description: args.Description
 
+                }
+            })
+            return {Statut: 200, Message : "La modification des données a echoué",data:[result]}
+        }
+        catch(err){
+            return {Statut : 0 , Message : err}
+        }
+    }
+})
+
+// Fonction pour supprimer un produit
+const deleteProduct = mutationField("DeleteProduct",{
+    type: nullable(ResProduct),
+    args:{
+        id: nonNull(intArg())
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.product.delete({
+                where:{
+                    id: args.id
+                }
+            })
+            return {Statut: 200,Message : "Le produit a bien été supprimé",data:[result]}
+        }
+        catch(err){return {Statut: 0, Message: err}}
+    }
+})
+
+// Fonction pour modifier le statut de d'un produit
+const putStatutProduct = mutationField("PutStatutProduct",{
+    type: nullable(ResProduct),
+    args:{
+        id : nonNull(intArg()),
+        NewStatut : nonNull(intArg())
+    },
+    resolve: async(root,args) => {
+        // Verifier si le nb Statut est valable (1 2 ou 3)
+        if (!(arg.id in (Object)[1,2,3])){
+            return {Statut: 0, Message : "Le statut n'est pas valable"}
+        }
+        try{
+            const result = await prisma.product.update({
+                where:{
+                    id: args.id 
+                },
+                data:{
+                    Statut: args.NewStatut
+                }
+            })
+            return {Statut : 200, Message: "Le Statut a bien été modifié", data:[Product]}
+        }
+        catch(err){return {Statut : 0 , Message : err}}
+    }
+})
+
+
+// Fonction pour Incrementer/Decrementer le nombre de produits d'un Basket
+const UpdateNbBaskets = mutationField("UpdateNbBaskets",{
+    type: nullable(ResProduct),
+    args:{
+        id : nonNull(intArg()),
+        Method : nonNull(intArg())
+    },
+    resolve: async (root,args) => {
+        // On verifie que l'argument method est valable
+        if (!(args.Method in (Object)[-1,1])){
+            return {Statut : 0, Message : "Argument non valide"}
+        }
+        try{
+            const result = await prisma.product.update({
+                where:{
+                    id : args.id
+                },
+                data:{
+                    NbBaskets: {increment : args.id}
+                }
+            })
+            return {Statut : 200, Message : "Le Nombre de paniers a bien été incrementé/decrementé",data:[Product]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+}) 
+
+const deleteAllProducts = mutationField("DeleteAllProducts",{
+    type: nullable(ResProduct),
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.product.deleteMany({})
+            return {Statut: 200, Message : "Tous les produits ont bien étés supprimés",data: [result]}
+        }
+        catch(err){return {Statut : 0, Message : err}}
+    }
+})
+
+// Fonction pour poster une commande
+const postCommand = mutationField({
+    type: nullable(ResCommand),
+    args:{
+        UserId : nullable(intArg())
+    },
+    resolve: async(root,args) => {
+        try{
+            const result = await prisma.command.create({
+                data:{
+                    UserId: args.id
+                }
+            })
+            return {Statut : 200, Message : "La commande a bien été crée",data:[result]}
+        }
+        catch(err){return {Statut : 0 , Message : err}}
+    }
+})
+// Fonction pour ajouter un produit à une commande
 
 // Get
 module.exports = {

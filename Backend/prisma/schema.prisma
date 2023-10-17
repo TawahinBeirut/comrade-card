@@ -31,7 +31,7 @@ model Basket{
 model Command{
   id Int @id @default(autoincrement())
   UserId Int @unique 
-  ProductsList Int[]
+  ProductsList Int[] @default([])
 }
 model Categorie{
   id Int @id @default(autoincrement())

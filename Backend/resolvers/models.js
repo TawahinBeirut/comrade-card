@@ -84,8 +84,17 @@ const ResProduct = objectType({
         t.list.field("data",{type:Product})
     }
 })
+const ResCommand = objectType({
+    name : 'ResCommand',
+    definition(t){
+        t.int("Statut")
+        t.string("Message")
+        t.string("Cookie")
+        t.list.field("data",{type:Command})
+    }
+})
 
 module.exports = {
     User,Product,Basket,Command,Categorie,
-    ResUser,ResBasket,ResProduct
+    ResUser,ResBasket,ResProduct,ResCommand
 }
