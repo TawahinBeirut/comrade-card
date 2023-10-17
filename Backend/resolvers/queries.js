@@ -1,10 +1,10 @@
 const {list,nonNull,nullable,queryField, intArg, stringArg, arg} = require("nexus");
-const {User, ResUser,ResBasket} = require('./models');
+const {User, ResUser,ResBasket, ResProduct} = require('./models');
 const prisma = require('../contexts');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
-// Get All 
+// Get All  (Modifier ces 2 la)
 const Users = queryField("Users",{
     type : nullable(list(nonNull(User))),
     resolve: async (root,args) => {
@@ -76,23 +76,69 @@ const verifyUser = queryField('VerifyUser',{
         return {Statut : 200}
     }
 })
+
+const getBasket = queryField('Basket',{
+    type: nullable(ResBasket),
+    args:{
+        id : id
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.basket.findUnique({
+                where:{
+                    id : args.id
+                }
+            })
+            return {Statut: 200, Messsage : "Recuperation réussie",data : [result]}
+        }
+        catch(err){return {Statut: 0 , Message : err}}
+    }
+})
 // Fonction pour avoir tous les Paniers de la db
-const getBaskets = queryField('GetBaskets',{
+const getBaskets = queryField('Baskets',{
     type:nullable(ResBasket),
     resolve: async (root,args) => {
         try{
             const result = await prisma.basket.findMany({})
-            return {Statut: 200, Message: "Recuperation des donnés ",data: result}
+            return {Statut: 200, Message: "Recuperation des donnés ",data: [result]}
         }
-        catch(err){return {Statut : 0 , Message : "Echec de la récuperation de données"}}
+        catch(err){return {Statut : 0 , Message : err}}
     }
 })
 // Fonctions pour les Produits 
+const getProducts = queryField('Products',{
+    type: nullable(ResProduct),
+    resolve: async(root,args) => {
+        try{
+            const result = await prisma.product.findMany({})
+            return {Statut : 200 , Message : "Recuperation réussie",data : [result]}
+        }
+        catch(err){return {Statut : 0 , Message :err}}
+    }
+})
+const getProduct = queryField('Product',{
+    type: nullable(ResProduct),
+    args: {
+        id : nonNull(intArg())
+    },
+    resolve: async (root,args) => {
+        try{
+            const result = await prisma.product.findUnique({
+                where:{
+                    id : args.id
+                }
+            })
+            return {Statut : 200, Message : "Reussite",data: [result]}
+        }
+        catch(err){return {Statut : 0,Message : err}}
+    }
+})
 
 // Fonction pour récuperer un produit en particulier
 
 // Fonction pour récuperer des produits en fonction de leur catégorrie
 
 module.exports = {
-    Users,user,Login,verifyUser,getBaskets
+    Users,user,Login,verifyUser,getBaskets,
+    getProduct,getProducts
 }
