@@ -5,8 +5,8 @@ export default function Home() {
 
   return (
 
-    <div>
-        <h1 className='bg-red-600 text-center'>Home</h1>
+    <div class="bg-Home_Back w-auto min-h-screen">
+
     </div>
   )
 }
