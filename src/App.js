@@ -10,6 +10,7 @@ import Categories from "./Pages/Categories";
 import ErrorPage from "./Pages/ErrorPage";
 import About from "./Pages/About";
 import Commands from "./Pages/Commands";
+import LoginRegister from "./Pages/LoginRegister";
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
         <Route path="/About" element={<About/>}/>
 
         <Route path="/Commands/:Userid" element={<Commands/>}/>
+
+        <Route path="/Login" element={<LoginRegister/>}/>
+        <Route path="/Register" element={<LoginRegister/>}/>
 
       </Routes>
     </Router>
