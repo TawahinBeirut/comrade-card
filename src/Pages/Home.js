@@ -4,13 +4,19 @@ import NavBar from '../Components/NavBar'
 import StylisedLink from '../Components/StylisedLink'
 import Style from '../Utils/Style'
 import SearchBar from '../Components/SearchBar'
+import useAuth from '../hooks/useAuth'
+import { useCookies } from 'react-cookie'
 
 export default function Home() {
 
 
-  
   // On vérifie si il est authentifié
-  const userId = 2
+  const userId = ''
+  const isAuth = useAuth();
+  useEffect(() => {
+    console.log(isAuth)
+  },[])
+  
 
   // On importe nos styles
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
