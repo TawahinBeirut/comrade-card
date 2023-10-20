@@ -5,18 +5,17 @@ import StylisedLink from '../Components/StylisedLink'
 import Style from '../Utils/Style'
 import SearchBar from '../Components/SearchBar'
 import useAuth from '../hooks/useAuth'
-import { useCookies } from 'react-cookie'
+import dataJson from '../data.json'
+import Loading_Page from '../Components/Loading_Page'
 
 export default function Home() {
 
 
   // On vérifie si il est authentifié
-  const userId = ''
+  let userId = ''
   const isAuth = useAuth();
-  useEffect(() => {
-    console.log(isAuth)
-  },[])
-  
+  console.log(isAuth);
+
 
   // On importe nos styles
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
@@ -25,7 +24,11 @@ export default function Home() {
   const ProfileStyle = new Style("HomeLogin","Profile",`/Profile/${userId}`)
 
 
+  if (isAuth === dataJson.Loading) return <Loading_Page/>
+  if (isAuth === dataJson.Error) return (() =>{ return(<div>Erreur : {isAuth}</div>)})
+  
   return (
+    
     <div className='bg-indigo-500'>
       <div className='bg-Home_Back w-screen h-screen bg-repeat'>
         
@@ -43,7 +46,6 @@ export default function Home() {
         
         {/* Faire le Texte de Présentation du SITE */}
         <div className=''>
-
         </div>
       </div>
     </div>

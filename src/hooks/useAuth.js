@@ -1,11 +1,38 @@
-import { useState } from "react"
-import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react"
+import Cookies from "js-cookie";
+import {useQuery, gql} from '@apollo/client';   
+import dataJson from '../data.json'
+
+const VerifyUser = gql`query($cookie: String!){
+    VerifyUser(Cookie: $cookie) {
+      Statut,data {
+        Email
+      }
+    }
+  }`
+
 
 export default function useAuth(){
 
-    // Requete graphQl pour récuperer l'id du gars + set son token
-    const cookie = useCookies();
-    const value = (Object.keys(cookie[0]) !== 0)? cookie[0].caca : false;
+    const [cookie,setCookie] = useState(null);
     
-    return value
+    let result = Cookies.get(dataJson.Cookie_Name);
+
+    const {loading,error,data} = useQuery(VerifyUser,{variables: {cookie: result}});
+    
+    // On récuperere le cookie
+    useEffect(({loading,error,data}) =>{
+        if(loading) return dataJson.Loading;
+        if (error) return dataJson.Error;
+        if (data){
+            if (data.Statut === 200){
+            setCookie(data.Cookie);
+            return cookie;
+            }
+            else {return dataJson.Error}
+        }
+    },[])
+
+    // Requete graphQl pour récuperer l'id du gars + set son token
+
 }

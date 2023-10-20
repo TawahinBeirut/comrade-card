@@ -4,11 +4,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+const client = new ApolloClient({
+  uri: "http://localhost:8080",
+  cache: new InMemoryCache()
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <ApolloProvider client={client}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

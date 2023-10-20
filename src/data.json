@@ -1,0 +1,12 @@
+{
+    "HomeText" : "",
+    "AboutText" : "",
+    "CategoriesDescriptions":{
+        "Automobile" : ""
+    },
+
+    "Cookie_Name": "ComradeCookie",
+    "Back_Url" : "http://localhost:8080",
+    "Loading" : "Loading",
+    "Error" : "Error"
+}
