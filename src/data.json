@@ -1,12 +1,11 @@
 {
-    "HomeText" : "",
+    "HomeTextTitle" : "Welcome to ComradeCart!",
+    "HomeText" : "Dive into a unique shopping experience where community and quality come together. From the essentials of the Proletariat Provisions to the revolutionary reads that stir the soul, ComradeCart is more than just a marketplace—it's a movement. Discover products that resonate with the spirit of solidarity and join a community that values every comrade. Together, we shop, we share, we thrive. Join the revolution today!",
     "AboutText" : "",
     "CategoriesDescriptions":{
         "Automobile" : ""
     },
 
     "Cookie_Name": "ComradeCookie",
-    "Back_Url" : "http://localhost:8080",
-    "Loading" : "Loading",
-    "Error" : "Error"
+    "Back_Url" : "http://localhost:8080/graphql"
 }

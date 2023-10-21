@@ -4,9 +4,16 @@ require('dotenv').config();
 const { ApolloServer} = require('apollo-server-express');
 const schema = require('./schema');
 
+
+const corsOptions = {
+    origin: "*",
+    credentials: true
+}
+
 const app = express();
 const PORT = process.env.DEV_PORT;
-const server = new ApolloServer({schema})
+const server = new ApolloServer({schema,cors: corsOptions})
+app.use(cors(corsOptions))
 
 const startServer = async () => {
     await server.start();
