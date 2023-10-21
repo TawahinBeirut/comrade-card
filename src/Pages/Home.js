@@ -18,6 +18,7 @@ export default function Home() {
   const [SearchWord,setSearchWord] = useState('');
   
   const isAuth = useAuth();
+  console.log(isAuth)
 
   const onClick = (e) => {
     Navigate(`Products/${SearchWord}`);
@@ -28,7 +29,7 @@ export default function Home() {
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
   const ExploreStyle = new Style("HomeExplore","Explore","/Explore");
   const LoginStyle = new Style("HomeLogin","Login","/Login");
-  const ProfileStyle = new Style("HomeLogin","Profile",`/Profile/${isAuth.userId}`)
+  const ProfileStyle = new Style("HomeLogin","Profile",`/Profile/${(isAuth.userId !== undefined) ? isAuth.userId : ""}`)
   
   return (
     <div className='bg-indigo-500'>
