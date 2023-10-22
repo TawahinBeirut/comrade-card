@@ -37,10 +37,10 @@ export default function Home() {
       {isAuth.error ? <ErrorPage error={isAuth.error}/> : null}
       {isAuth.loading ? <Loading_Page/> : null}
       {isAuth.data ?
-      <div className='bg-Home_Back w-screen h-screen bg-repeat'>
+      <div className='bg-Home_Back w-screen h-screen bg-repeat bg-cover'>
         
         <NavBar 
-        Logo={<StylisedLink Style={LogoStyle}/>} 
+        Logo={<StylisedLink Style={LogoStyle}/>}  
         Link={<StylisedLink Style={ExploreStyle}/>} 
         Link2={<StylisedLink Style={isAuth.check? ProfileStyle : LoginStyle}/>}
         />

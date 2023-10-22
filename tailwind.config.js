@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       backgroundImage:{
         'Home_Back' : "url('./assets/Home_Page_Background.png')",
+        'LoginBack' : "url('./assets/Login_Background.png')"
       },
       fontFamily:{
         'Logo' : ['Bebas Neue', 'sans-serif'], 
