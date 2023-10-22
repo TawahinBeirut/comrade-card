@@ -42,7 +42,7 @@ else if(data !== undefined){
             ...isAuth,
             data: data,
             check: true,
-            userId: data.data.id
+            userId: data.data.id    
         })
     }
     else {

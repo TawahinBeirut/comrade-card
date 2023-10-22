@@ -7,6 +7,7 @@ import SearchBar from '../Components/SearchBar'
 import Loading_Page from '../Components/Loading_Page'
 import dataJson from '../data.json'
 import { useAuth } from '../hooks/useAuth'
+import ErrorPage from '../Components/ErrorPage'
 
 
 export default function Home() {
@@ -33,7 +34,7 @@ export default function Home() {
   
   return (
     <div className='bg-indigo-500'>
-      {isAuth.error ? <p>Erreur : {JSON.stringify(isAuth.error)}</p> : null}
+      {isAuth.error ? <ErrorPage error={isAuth.error}/> : null}
       {isAuth.loading ? <Loading_Page/> : null}
       {isAuth.data ?
       <div className='bg-Home_Back w-screen h-screen bg-repeat'>
