@@ -5,4 +5,5 @@ class Style{
         this.toLink = toLink
     }
 }
-export default Style;
+
+export {Style};
