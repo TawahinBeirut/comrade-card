@@ -22,12 +22,13 @@ export default function LoginRegister() {
   // Selon la Nature de la Page => Proposer un formulaire Different => Composant Form
   
 
+
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
   
   return (
     <div className="bg-LoginBack bg-cover h-screen">
-      <NavBar Logo={<StylisedLink Style={LogoStyle}/>}/>
-      
+      <div className="ml"><NavBar Logo={<StylisedLink Style={LogoStyle}/>}/></div>
+      <div className='border border-white'></div>
     </div>
   )
 }
