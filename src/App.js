@@ -11,6 +11,7 @@ import ErrorPage from "./Pages/ErrorPage";
 import About from "./Pages/About";
 import Commands from "./Pages/Commands";
 import LoginRegister from "./Pages/LoginRegister";
+import FormTreat from "./Pages/FormTreat";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/Error" element={<ErrorPage/>}/>
 
         <Route path="/" element={<Home/>}/>
+        <Route path="/FormTreat/:Nature/:Email/:Password/:Name" element={<FormTreat/>}/>
 
         <Route path="/Explore" element={<Explore/>}/>
         <Route path="/Explore/:Categorie" element={<Explore/>}/>

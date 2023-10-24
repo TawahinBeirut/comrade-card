@@ -9,6 +9,7 @@ import Form from '../Components/LoginRegisterPage/Form';
 import { useQuery } from '@apollo/client';
 import Loading_Page from '../Components/Loading_Page';
 import { Login,Register } from '../Utils/queries';
+import { useAuth } from '../hooks/useAuth';
 
 export default function LoginRegister() {
 
@@ -16,9 +17,12 @@ export default function LoginRegister() {
   Cookies.remove(dataJson.Cookie_Name);
   const Navigate = useNavigate();
 
+
  // Deuxieme Etape : Determiner si il s'agit d'un Login ou pas
    const Nature = useLocation().pathname
    const LoginCheck = (Nature === "/Login") ? true : false;
+
+   
   
   // On definit nos formulaires en fonction
   const LoginForm = {Nature : "Login", Email : "",Password : ""};
@@ -40,22 +44,10 @@ export default function LoginRegister() {
     })
   }
 
-  const onLogin = () => {
-    // Coder la requete GraphQl pour se connecter
-    const {loading,error,data} = useQuery(Login,{variables: {Email: FormType.Email,Password: FormType.Password}})
-    if (data!== undefined){
-      const UserId = data.data.id 
-      const Cookie = data.Cookie
-      Cookies.set(dataJson.Cookie_Name,Cookie);
-      useNavigate('/');
-    }
+  const onSubmit = () => {
+  // Créer une page intermediaire pour traiter les formulaires
+    Navigate(`/FormTreat/${FormType.Nature}/${FormType.Email}/${FormType.Password}/${(FormType.Name !== undefined) ? FormType.Name : null}`)
   }
-
-  const onRegister = () => {
-    // Coder la requete GraphQl pour s'enregister
-    Navigate('/login');
-  }
-
 
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
   
@@ -64,7 +56,7 @@ export default function LoginRegister() {
       <div className="ml-44 flex justify-center"><NavBar Logo={<StylisedLink Style={LogoStyle}/>}/></div>
       <div className="flex justify-center align-middle">
         <div className=' mt-20 w-96 h-96'>
-          <Form FormType={FormType} onClick={LoginCheck ? onLogin : onRegister} onChange={onChange}/>
+          <Form FormType={FormType} onClick={onSubmit} onChange={onChange}/>
         </div>
       </div>
     </div>

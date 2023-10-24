@@ -7,7 +7,6 @@ export default function Form({FormType,onClick,onChange}) {
   const toLink = (FormType.Nature === "Login") ? "/Register" : "/Login";
   const TextLink = (FormType.Nature !== "Login") ? "Already registered? Log in" : "No account? Please register"
 
-  console.log(FormType)
   return (
     <div className='m-9 w-4/5 h-4/5 flex flex-col text-center justify-around'>
 
@@ -21,7 +20,7 @@ export default function Form({FormType,onClick,onChange}) {
       {(FormType.Password !== undefined) ? 
       <input type='text' name='Password' value={FormType.Password} onChange={onChange} className={InputStyle}placeholder='Password'></input>
       : null}
-      <button className=' rounded-3xl text-white h-10 bg-gradient-to-r from-red-600 via-purple-900 to-pink-300 font-SearchBar text-xl'>{FormType.Nature}</button>
+      <button onClick={onClick} className=' rounded-3xl text-white h-10 bg-gradient-to-r from-red-600 via-purple-900 to-pink-300 font-SearchBar text-xl'>{FormType.Nature}</button>
 
 
       <Link to={toLink} className='text-white decoration-4 decoration-white font-SearchBar' onClick={async() => {await new Promise(r => setTimeout(r,100)); window.location.reload()}}>{TextLink}</Link>
