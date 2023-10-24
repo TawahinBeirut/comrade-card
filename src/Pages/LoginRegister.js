@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import dataJson from '../data.json'
 import NavBar from '../Components/NavBar';
@@ -11,6 +11,7 @@ export default function LoginRegister() {
 
  // Premiere Etape : Supprimer les cookies de la session courante
   Cookies.remove(dataJson.Cookie_Name);
+  const Navigate = useNavigate();
 
  // Deuxieme Etape : Determiner si il s'agit d'un Login ou pas
    const Nature = useLocation().pathname
@@ -29,6 +30,22 @@ export default function LoginRegister() {
   // Un evenement OnClick differents , l'un crée un compte et l'autre se connecte
   // Selon la Nature de la Page => Proposer un formulaire Different => Composant Form
   
+  const onChange = (e) => {
+    setFormType({
+      ...FormType,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const onLogin = () => {
+    // Coder la requete GraphQl pour se connecter
+    
+  }
+
+  const onRegister = () => {
+    // Coder la requete GraphQl pour s'enregister
+    Navigate('/login');
+  }
 
 
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
@@ -38,7 +55,7 @@ export default function LoginRegister() {
       <div className="ml-44 flex justify-center"><NavBar Logo={<StylisedLink Style={LogoStyle}/>}/></div>
       <div className="flex justify-center align-middle">
         <div className=' mt-20 w-96 h-96'>
-          <Form FormType={FormType} onClick="" onChange=""/>
+          <Form FormType={FormType} onClick={LoginCheck ? onLogin : onRegister} onChange={onChange}/>
         </div>
       </div>
     </div>

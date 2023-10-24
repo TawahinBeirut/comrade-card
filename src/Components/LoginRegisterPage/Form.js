@@ -13,13 +13,13 @@ export default function Form({FormType,onClick,onChange}) {
 
       <h1 className='text-white font-Logo text-5xl'>{FormType.Nature}</h1>
       {(FormType.Name !== undefined) ? 
-      <input type='text' value={FormType.Name} className={InputStyle} placeholder='Name'></input>
+      <input type='text' name='Name' onChange={onChange} value={FormType.Name} className={InputStyle} placeholder='Name'></input>
       : null }
       {(FormType.Email !== undefined) ? 
-      <input type='text' value={FormType.Email} className={InputStyle} placeholder='Email'></input>
+      <input type='text' name='Email'  onChange={onChange} value={FormType.Email} className={InputStyle} placeholder='Email'></input>
       : null}
       {(FormType.Password !== undefined) ? 
-      <input type='text' value={FormType.Password} className={InputStyle}placeholder='Password'></input>
+      <input type='text' name='Password' value={FormType.Password} onChange={onChange} className={InputStyle}placeholder='Password'></input>
       : null}
       <button className=' rounded-3xl text-white h-10 bg-gradient-to-r from-red-600 via-purple-900 to-pink-300 font-SearchBar text-xl'>{FormType.Nature}</button>
 
