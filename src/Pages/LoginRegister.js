@@ -6,6 +6,9 @@ import NavBar from '../Components/NavBar';
 import {Style} from '../Utils/Models';
 import StylisedLink from '../Components/StylisedLink';
 import Form from '../Components/LoginRegisterPage/Form';
+import { useQuery } from '@apollo/client';
+import Loading_Page from '../Components/Loading_Page';
+import { Login,Register } from '../Utils/queries';
 
 export default function LoginRegister() {
 
@@ -39,7 +42,13 @@ export default function LoginRegister() {
 
   const onLogin = () => {
     // Coder la requete GraphQl pour se connecter
-    
+    const {loading,error,data} = useQuery(Login,{variables: {Email: FormType.Email,Password: FormType.Password}})
+    if (data!== undefined){
+      const UserId = data.data.id 
+      const Cookie = data.Cookie
+      Cookies.set(dataJson.Cookie_Name,Cookie);
+      useNavigate('/');
+    }
   }
 
   const onRegister = () => {
