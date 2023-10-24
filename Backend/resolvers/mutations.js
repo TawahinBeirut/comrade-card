@@ -14,6 +14,12 @@ const createUser = mutationField("Register",{
         Password : nonNull(stringArg())
     },
     resolve: async (root,args) => {
+        const checkEmail = await prisma.user.findUnique({
+            where:{
+                Email: args.Email
+            }
+        })
+        if (checkEmail == null){
         const result = 
         bcrypt
         .genSalt(saltRounds)
@@ -43,6 +49,8 @@ const createUser = mutationField("Register",{
         .finally(mess => {return mess})
         return result
     }
+    else return {Statut : 0 ,Message : "Email déjà existant"}}
+
         
 })
 

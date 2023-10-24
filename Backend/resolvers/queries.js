@@ -49,7 +49,7 @@ const Login = queryField("Login",{
             const result2 = bcrypt.compare(args.Password,result.Password)
             .then(res => {
                 if(res){
-                    const token = jwt.sign({name: result.Name},process.env.TOKEN_SECRET_KEY,{expiresIn : '1d'})
+                    const token = jwt.sign({id: result.id},process.env.TOKEN_SECRET_KEY,{expiresIn : '1d'})
                     return {Statut: 200, Message : "L'operation a reussi",Cookie: token,data : [result]}
                 }
                 else return {Statut : 0,Message : "Mot de passe non valide"}

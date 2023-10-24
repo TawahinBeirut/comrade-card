@@ -11,7 +11,6 @@ const [isAuth,setIsAuth] = useState({
     loading : false,
     data : null,
     check : false,
-    userId : ""
 })
 
 // On récupere le cookie de la page
@@ -23,7 +22,6 @@ if (cookie === undefined){
 const {loading,error,data} = useQuery(VerifyUser,{variables : {cookie: cookie}})
 
 useEffect(() => {
-    console.log(loading,error,data)
 if(error !== undefined){
     setIsAuth({
         ...isAuth,
@@ -37,12 +35,13 @@ else if(loading){
     })
 }
 else if(data !== undefined){
-    if (data.Statut === 200 ){
+    const data2 = data.VerifyUser
+    if (data2.Statut === 200 ){
         setIsAuth({
             ...isAuth,
             data: data,
-            check: true,
-            userId: data.data.id    
+            check: true,  
+            loading: false 
         })
     }
     else {

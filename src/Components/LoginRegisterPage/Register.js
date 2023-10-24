@@ -13,16 +13,19 @@ export default function Register({Name,Email,Password}) {
     // Analyser la data pour verifier le succés de l'operation  
     useEffect(() => {
         register({variables:{name:Name,email:Email,password:Password}})
-        console.log(loading)
+        console.log(data)
+        
         if (data !== undefined){
-        if (data.Statut == 0){
-            Navigate('/Error')
+          
+        let data2 = data.Register
+        
+        if (data2.Statut == 0){
+            Navigate('/Error/Email')
         }
         else{
             Navigate('/Login');
-            alert('Registration worked !')
         }
-    }},[])
+    }},[data])
     
   return (
     <div>

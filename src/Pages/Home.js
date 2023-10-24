@@ -7,7 +7,8 @@ import SearchBar from '../Components/SearchBar'
 import Loading_Page from '../Components/Loading_Page'
 import dataJson from '../data.json'
 import { useAuth } from '../hooks/useAuth'
-import ErrorPage from '../Components/ErrorPage'
+import ErrorPage from '../Pages/ErrorPage'
+import Cookies from 'js-cookie'
 
 
 export default function Home() {
@@ -30,7 +31,7 @@ export default function Home() {
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");
   const ExploreStyle = new Style("HomeExplore","Explore","/Explore");
   const LoginStyle = new Style("HomeLogin","Login","/Login");
-  const ProfileStyle = new Style("HomeLogin","Profile",`/Profile/${(isAuth.userId !== undefined) ? isAuth.userId : ""}`)
+  const ProfileStyle = new Style("HomeLogin","Profile",`/Profile`)
   
   return (
     <div className='bg-indigo-500'>

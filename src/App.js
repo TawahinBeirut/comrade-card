@@ -20,7 +20,7 @@ function App() {
       <Routes>
 
         <Route path="*" element={<ErrorPage/>}/>
-        <Route path="/Error" element={<ErrorPage/>}/>
+        <Route path="/Error/:Error" element={<ErrorPage/>}/>
 
         <Route path="/" element={<Home/>}/>
         <Route path="/FormTreat/:Nature/:Email/:Password/:Name" element={<FormTreat/>}/>
@@ -34,7 +34,7 @@ function App() {
         <Route path="/Products/:Name" element={<Products/>}/>
         <Route path="/Product/:id" element={<Product/>}/>
 
-        <Route path="/Profile/:Name" element={<Profile/>}/>
+        <Route path="/Profile" element={<Profile/>}/>
 
         <Route path="/Basket/:Userid" element={<Basket/>}/>
 
