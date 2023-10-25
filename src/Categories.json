@@ -1,0 +1,21 @@
+[
+    {
+       "Name" : "Automobile",
+       "id" : 1
+    },{
+        "Name" : "Housing",
+        "id" : 2
+    },
+    {
+        "Name" : "Clothes",
+        "id" : 3
+    },
+    {
+        "Name": "Provisions",
+        "id" : 4
+    },
+    {
+        "Name" : "Books",
+        "id" : 5
+    }
+]

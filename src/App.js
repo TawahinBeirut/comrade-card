@@ -6,7 +6,7 @@ import Products from "./Pages/Products";
 import Product from "./Pages/Product";
 import Profile from "./Pages/Profile";
 import Basket from "./Pages/Basket";
-import Categories from "./Pages/Categories";
+import Categories from "./Pages/Categorie";
 import ErrorPage from "./Pages/ErrorPage";
 import About from "./Pages/About";
 import Commands from "./Pages/Commands";
@@ -27,8 +27,6 @@ function App() {
 
         <Route path="/Explore" element={<Explore/>}/>
         <Route path="/Explore/:Categorie" element={<Explore/>}/>
-
-        <Route path="/Categories" element={<Categories/>}/>
 
         <Route path="/Products" element={<Products/>}/>
         <Route path="/Products/:Name" element={<Products/>}/>

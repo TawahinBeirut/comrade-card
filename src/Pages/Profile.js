@@ -40,7 +40,7 @@ export default function Profile() {
       />
     <div className="flex justify-center"> 
 
-      <div className=' h-9/12 mt-10 flex flex-col'>
+      <div className=' h-9/12 mt-12 flex flex-col'>
         <div className=' w-9/12 bg-transparent flex justify-center ml-32 mt-3'>
           <img className="w-full"src={img}></img>
           </div>
