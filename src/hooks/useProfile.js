@@ -14,7 +14,7 @@ const useProfile = (id) => {
         }
     })
 
-    const {loading,error,data} = useQuery(Profile,{variables: {id: id}})
+    const {loading,error,data} = useQuery(Profile,{variables: {userId: id}})
 
     useEffect(() => {
         if (error !== undefined){
@@ -40,9 +40,9 @@ const useProfile = (id) => {
                     error : null,
                     check: true,
                     data:{
-                        Name : data2.data.Name,
-                        Email: data2.data.Email,
-                        Score: data2.data.Score
+                        Name : data2.data[0].Name,
+                        Email: data2.data[0].Email,
+                        Score: data2.data[0].Score
                     }
                 })
             }

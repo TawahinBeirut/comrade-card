@@ -13,7 +13,7 @@ export default function ErrorPage() {
                   break;
     case 'Email' : error = <Link to='/Register'>Email déja utilisé</Link>
                 break;
-    default: error=<Link to="/"> Erreur non reconnue, Rendez vous à la page d'accueil</Link>
+    default: error=<Link to="/"> Erreur non reconnue : {JSON.stringify(Error)} Rendez vous à la page d'accueil</Link>
   }
 
   return (

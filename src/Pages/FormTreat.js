@@ -9,7 +9,8 @@ export default function FormTreat() {
     const Params = useParams()
 
   return (
-    <div>{(Params.Nature == "Login") ? 
+    <div className='
+    bg-indigo-500'>{(Params.Nature == "Login") ? 
     <Login Email={Params.Email} Password={Params.Password}/> 
     : 
     <Register Name={Params.Name} Email={Params.Email} Password={Params.Password}/>}

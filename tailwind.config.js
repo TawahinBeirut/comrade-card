@@ -13,7 +13,8 @@ module.exports = {
       },
       fontFamily:{
         'Logo' : ['Bebas Neue', 'sans-serif'], 
-        'SearchBar': ['DM Serif Display', 'serif']
+        'SearchBar': ['DM Serif Display', 'serif'],
+        'Profile' : ['Kanit','sans-serif']
       }
     },
   },
