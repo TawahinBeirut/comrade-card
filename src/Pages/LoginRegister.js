@@ -8,7 +8,8 @@ import StylisedLink from '../Components/StylisedLink';
 import Form from '../Components/LoginRegisterPage/Form';
 import { useQuery } from '@apollo/client';
 import Loading_Page from '../Components/Loading_Page';
-import { Login,Register } from '../Utils/queries';
+import Login from '../Components/LoginRegisterPage/Login';
+import Register from '../Components/LoginRegisterPage/Register';
 import { useAuth } from '../hooks/useAuth';
 
 export default function LoginRegister() {
@@ -21,12 +22,14 @@ export default function LoginRegister() {
  // Deuxieme Etape : Determiner si il s'agit d'un Login ou pas
    const Nature = useLocation().pathname
    const LoginCheck = (Nature === "/Login") ? true : false;
-
+  
    
   
   // On definit nos formulaires en fonction
   const LoginForm = {Nature : "Login", Email : "",Password : ""};
   const RegisterForm = {...LoginForm,Name : "",Nature : "Register"}
+  
+  const [Display,setDisplay] = useState(false);
 
 
   const DefaultForm = (LoginCheck) ? LoginForm : RegisterForm
@@ -47,6 +50,7 @@ export default function LoginRegister() {
   const onSubmit = () => {
   // Créer une page intermediaire pour traiter les formulaires
     Navigate(`/FormTreat/${FormType.Nature}/${FormType.Email}/${FormType.Password}/${(FormType.Name !== undefined) ? FormType.Name : null}`)
+    
   }
 
   const LogoStyle = new Style("HomeLogo","ComradeCard","/");

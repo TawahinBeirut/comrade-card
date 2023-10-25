@@ -28,7 +28,7 @@ export default function Register({Name,Email,Password}) {
     }},[data])
     
   return (
-    <div>
+    <div className='bg-indigo-500'>
     {loading ? <Loading_Page/> : null}
     {(error !== undefined) ? <Link to="/Register">Une erreur est advenue {JSON.stringify(error)}, veuillez réessayez</Link> : <p>Ca marche</p>}
     

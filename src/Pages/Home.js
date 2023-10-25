@@ -17,7 +17,7 @@ export default function Home() {
   // On vérifie si il est authentifié
   
   const Navigate = useNavigate();
-  const [SearchWord,setSearchWord] = useState('');
+  const [SearchWord,setSearchWord] = useState(''); 
   
   const isAuth = useAuth();
   console.log(isAuth)

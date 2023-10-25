@@ -18,7 +18,7 @@ export default function Form({FormType,onClick,onChange}) {
       <input type='text' name='Email'  onChange={onChange} value={FormType.Email} className={InputStyle} placeholder='Email'></input>
       : null}
       {(FormType.Password !== undefined) ? 
-      <input type='text' name='Password' value={FormType.Password} onChange={onChange} className={InputStyle}placeholder='Password'></input>
+      <input type='password' name='Password' value={FormType.Password} onChange={onChange} className={InputStyle}placeholder='Password'></input>
       : null}
       <button onClick={onClick} className=' rounded-3xl text-white h-10 bg-gradient-to-r from-red-600 via-purple-900 to-pink-300 font-SearchBar text-xl'>{FormType.Nature}</button>
 
