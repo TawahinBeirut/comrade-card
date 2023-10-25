@@ -25,7 +25,7 @@ export default function Login({Email,Password}) {
     }}
   },[data])
   return (
-    <div>
+    <div className='bg-indigo-500'>
     {loading ? <Loading_Page/> : null}
     {(error !== undefined) ? <Link to="/Login">Une erreur est advenue {JSON.stringify(error)}, veuillez réessayez</Link> : <p>Ca marche</p>}
     </div>

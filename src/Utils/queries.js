@@ -18,5 +18,12 @@ const Login = gql`query($email: String!, $password: String!){Login(Email: $email
     id
   }
 }}`
+const Profile = gql`query($userId: Int!){
+  User(id: $userId) {
+    Statut,Message,data {
+      Email,Name,Score
+    }
+  }
+}`
 
-export {VerifyUser,Register,Login}
+export {VerifyUser,Register,Login,Profile}

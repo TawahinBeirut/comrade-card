@@ -14,7 +14,7 @@ const Users = queryField("Users",{
 })
 // Avoir un User en particulier
 const user = queryField("User",{
-    type : nullable(User),
+    type : nullable(ResUser),
     args: {
         id : nonNull(intArg())
     },
@@ -25,7 +25,10 @@ const user = queryField("User",{
                 id : args.id
             }
         })
-        return result
+        if (result != null){
+        return {Statut : 200, Message: "Ca a fonctionné",data:[result]}
+        }
+        else return {Statut : 0 , Message : "Utilisateur non trouvé"}
     }
 })
 
