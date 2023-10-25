@@ -21,7 +21,8 @@ model Product{
   Name String
   Statut Int @default(1)
   Description String
-  SellerId Int 
+  SellerId Int
+  idCategorie Int 
   NbBaskets Int @default(0)
   Categorie Int[] @default([])
 }

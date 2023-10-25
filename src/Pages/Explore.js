@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import StylisedLink from '../Components/StylisedLink';
 import { Style } from '../Utils/Models';
 import Categories from '../Categories.json'
-import Categorie from './Categorie';
+import Categorie from '../Components/Categorie';
 
 export default function Explore() {
 
@@ -17,7 +17,10 @@ export default function Explore() {
     const LoginStyle = new Style("HomeLogin","Login","/Login");
     const ProfileStyle = new Style("HomeLogin","Profile",`/Profile`)
 
-    
+    // Evenement onClick pour changer de page
+    const onClick = (e) => {
+      Navigate(`/Explore/${e.target.id}`)
+    } 
     // Recuperer les catégories et 
   return (
     <div>
@@ -27,8 +30,8 @@ export default function Explore() {
         Link2={<StylisedLink Style={isAuth.check? ProfileStyle : LoginStyle}/>}
         />
 
-        <div className="h-1/3 bg-white w-4/6 ml-64 mb-2 rounded-2xl flex flex-wrap">
-          {Categories.map(cat => <Categorie id={cat.id} Name={cat.Name}/>)}
+        <div className=" bg-white w-4/6 ml-64 mb-2 rounded-2xl flex flex-wrap justify-around">
+          {Categories.map(cat => <Categorie id={cat.id} Name={cat.Name} img={cat.img} onClick={onClick}/>)}
           </div>        
        </div>
     </div>

@@ -44,14 +44,15 @@ export default function Profile() {
         <div className=' w-9/12 bg-transparent flex justify-center ml-32 mt-3'>
           <img className="w-full"src={img}></img>
           </div>
-        <div className='bg-white flex -mt-7 w-9/12 ml-32 justify-between p-11'> 
-          <div className='h-20 border border-black mt-1 w-1/3'>Mettre l'historique de commandes ici</div>
+        <div className='bg-white flex -mt-7 w-9/12 ml-32 justify-between p-10'> 
+          <div className='h-20 border border-black mt-1 w-1/3'>Mettre l'historique des produits Postés</div>
           <div className='mt-5 h-44 flex flex-col justify-between'>
           <div className="bg-gray-300 font-Profile font-bold text-center  rounded w-72 p-1">Name : {Profile.data.Name}</div>
           <div className="bg-gray-300 font-Profile font-bold text-center rounded w-72 p-1">Email : {Profile.data.Email}</div>
           <div className="bg-gray-300 font-Profile font-bold text-center rounded w-72 p-1"> Score : {Profile.data.Score}</div>
           <button type="button" onClick={onClick} class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 font-Profile">Panier</button>
           </div>
+        
         </div>
       </div> 
     </div>

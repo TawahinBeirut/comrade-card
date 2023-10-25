@@ -23,6 +23,7 @@ const Product = objectType({
         t.string("Description")
         t.int("SellerId")
         t.int("NbBaskets")
+        t.int("idCategorie")
         t.list.field('Categorie',{type : nonNull('Int')})    
     }
 })

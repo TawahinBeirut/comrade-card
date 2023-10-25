@@ -6,12 +6,13 @@ import Products from "./Pages/Products";
 import Product from "./Pages/Product";
 import Profile from "./Pages/Profile";
 import Basket from "./Pages/Basket";
-import Categories from "./Pages/Categorie";
+import Categorie from "./Components/Categorie";
 import ErrorPage from "./Pages/ErrorPage";
 import About from "./Pages/About";
 import Commands from "./Pages/Commands";
 import LoginRegister from "./Pages/LoginRegister";
 import FormTreat from "./Pages/FormTreat";
+import ExploreCategorie from "./Pages/ExploreCategorie";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Route path="/FormTreat/:Nature/:Email/:Password/:Name" element={<FormTreat/>}/>
 
         <Route path="/Explore" element={<Explore/>}/>
-        <Route path="/Explore/:Categorie" element={<Explore/>}/>
+        <Route path="/Explore/:Categorie" element={<ExploreCategorie/>}/>
 
         <Route path="/Products" element={<Products/>}/>
         <Route path="/Products/:Name" element={<Products/>}/>

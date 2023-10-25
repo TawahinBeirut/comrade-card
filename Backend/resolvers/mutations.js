@@ -120,7 +120,8 @@ const postProduct = mutationField("PostProduct",{
     args: {
         Name: nonNull(stringArg()),
         Description : nonNull(stringArg()),
-        Sellerid : nonNull(intArg())
+        Sellerid : nonNull(intArg()),
+        idCategorie : nonNull(intArg())
     },
     resolve: async(root,args) => {
         try{
@@ -128,7 +129,8 @@ const postProduct = mutationField("PostProduct",{
                 data:{
                     Name: args.Name,
                     Description: args.Description,
-                    SellerId: args.Sellerid
+                    SellerId: args.Sellerid,
+                    idCategorie: args.idCategorie
                 }
             })
             return {Statut : 200, Message : "L'Insertion des données a réussi",data: [result]}
