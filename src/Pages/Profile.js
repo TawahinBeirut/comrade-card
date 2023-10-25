@@ -45,7 +45,7 @@ export default function Profile() {
           <img className="w-full"src={img}></img>
           </div>
         <div className='bg-white flex -mt-7 w-9/12 ml-32 justify-between p-10'> 
-          <div className='h-20 border border-black mt-1 w-1/3'>Mettre l'historique des produits Postés</div>
+          <div className='h-20 border border-black mt-1 w-1/3'>Mettre Un lien vers les produits postés + Commandes apres</div>
           <div className='mt-5 h-44 flex flex-col justify-between'>
           <div className="bg-gray-300 font-Profile font-bold text-center  rounded w-72 p-1">Name : {Profile.data.Name}</div>
           <div className="bg-gray-300 font-Profile font-bold text-center rounded w-72 p-1">Email : {Profile.data.Email}</div>

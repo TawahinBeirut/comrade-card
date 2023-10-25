@@ -26,4 +26,12 @@ const Profile = gql`query($userId: Int!){
   }
 }`
 
-export {VerifyUser,Register,Login,Profile}
+const ProductsCat = gql`query{
+  Products {
+    Statut,data {
+      id
+    }
+  }
+}`
+
+export {VerifyUser,Register,Login,Profile,ProductsCat}
