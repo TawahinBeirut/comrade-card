@@ -9,31 +9,32 @@ import Categorie from '../Components/Categorie';
 
 export default function Explore() {
 
-    // On verifie si il est autentifié ou non
-    const Navigate = useNavigate();
-    const isAuth = useAuth();
-    
-    const LogoStyle = new Style("HomeLogo","ComradeCard","/");
-    const LoginStyle = new Style("HomeLogin","Login","/Login");
-    const ProfileStyle = new Style("HomeLogin","Profile",`/Profile`)
+  // On verifie si il est autentifié ou non
+  const Navigate = useNavigate();
+  const isAuth = useAuth();
 
-    // Evenement onClick pour changer de page
-    const onClick = (e) => {
-      Navigate(`/Explore/${e.target.id}`)
-    } 
-    // Recuperer les catégories et 
+  const LogoStyle = new Style("HomeLogo", "ComradeCard", "/");
+  const LoginStyle = new Style("HomeLogin", "Login", "/Login");
+  const ProfileStyle = new Style("HomeLogin", "Profile", `/Profile`)
+
+  // Evenement onClick pour changer de page
+  const onClick = (e) => {
+    Navigate(`/Explore/${e.target.id}`)
+  }
+  // Recuperer les catégories et 
   return (
     <div>
-       <div className='bg-Explore_Back bg-cover h-screen flex flex-col justify-between'>
-       <NavBar 
-        Logo={<StylisedLink Style={LogoStyle}/>} 
-        Link2={<StylisedLink Style={isAuth.check? ProfileStyle : LoginStyle}/>}
+      <div className='bg-Explore_Back bg-cover h-screen flex flex-col justify-between'>
+        <NavBar
+          Logo={<StylisedLink Style={LogoStyle} />}
+          Link2={<StylisedLink Style={isAuth.check ? ProfileStyle : LoginStyle} />}
         />
 
-        <div className=" bg-white w-4/6 ml-64 mb-2 rounded-2xl flex flex-wrap justify-around">
-          {Categories.map(cat => <Categorie id={cat.id} Name={cat.Name} img={cat.img} onClick={onClick}/>)}
-          </div>        
-       </div>
+        <div className='flex justify-center'><div className=" bg-white w-4/6 rounded-2xl flex-wrap gap-5 overflow-hidden flex justify-center">
+          {Categories.map(cat => <Categorie id={cat.id} Name={cat.Name} img={cat.img} onClick={onClick} />)}
+        </div>
+        </div>
+      </div>
     </div>
   )
 }

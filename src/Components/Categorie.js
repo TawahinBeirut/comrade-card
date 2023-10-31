@@ -11,10 +11,10 @@ export default function Categorie({id,Name,onClick}) {
 
 
   return (
-    <div className=' h-5/6 mt-6 w-2/12'>
+    <div className=' h-5/6 mt-6 w-2/12 flex flex-col'>
       <h1 className='text-center font-SearchBar'>{Name}</h1>
-      <div className='w-9/12 ml-6'><img src={img} className='rounded-xl' alt={Name}></img></div>
-      <button id={id} onClick={onClick} className='text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-900 border-2 border-black ml-12 mt-3'>Visiter</button>
+      <div className='flex justify-center'><div className='w-9/12'><img src={img} className='rounded-xl' alt={Name}></img></div></div>
+      <div className='flex justify-center'><button id={id} onClick={onClick} className='text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center mb-2 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-900 border-2 border-black mt-3'>Visiter</button></div>
     </div>
   )
 }
