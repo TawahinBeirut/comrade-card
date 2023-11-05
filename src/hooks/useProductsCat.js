@@ -8,9 +8,8 @@ const useProductsCat = (Categorie) => {
         loading : false,
         error : null,
         check : false,
-        data : null,
+        data : [],
     })
-    console.log(Result)
 
     const {loading,error,data} = useQuery(ProductsCat);
     
