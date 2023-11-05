@@ -10,6 +10,7 @@ const useProductsCat = (Categorie) => {
         check : false,
         data : null,
     })
+    console.log(Result)
 
     const {loading,error,data} = useQuery(ProductsCat);
     
@@ -21,7 +22,7 @@ const useProductsCat = (Categorie) => {
                 loading: false
             })
         }
-        else if (loading != true){
+        else if (loading == true){
             setResult({
                 ...Result,
                 loading: true
@@ -46,7 +47,7 @@ const useProductsCat = (Categorie) => {
                 })
             }
         }
-        else setResult(...Result)
+        else setResult({...Result})
     },[data,loading,error])
 
     return Result;
