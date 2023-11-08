@@ -29,7 +29,7 @@ const Profile = gql`query($userId: Int!){
 const ProductsCat = gql`query{
   Products {
     Statut,data {
-    id,idCategorie
+    id,idCategorie,Name,Description,Statut,NbBaskets
     }
   }
 }`
