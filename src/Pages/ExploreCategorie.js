@@ -20,10 +20,14 @@ export default function ExploreCategorie() {
       {Products.loading ? <Loading_Page/> : null}
       {(Products.error != null) ? <div>{JSON.stringify(Products.error)}</div> : null} {/* On fera une page spéciale après */}
       {(FilteredProducts.length != 0) ? 
-        <div className='bg-Explore_Back bg-cover h-screen flex flex-col justify-between'>
+      // Style à regler, surtout avec le fond d'ecran
+        <div className=' bg-Explore_Back bg-cover bg-repeat flex flex-col justify-between'>
         <div className='flex justify-center border border-black p-2 mt-28 '>
           <div className='w-3/4 bg-white flex flex-wrap justify-center p-3 gap-5'>
           {FilteredProducts.map(el =>(
+            <Product el={el}/>
+          ))
+          }{FilteredProducts.map(el =>(
             <Product el={el}/>
           ))
           }{FilteredProducts.map(el =>(

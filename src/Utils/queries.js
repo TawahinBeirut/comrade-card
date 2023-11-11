@@ -34,4 +34,12 @@ const ProductsCat = gql`query{
   }
 }`
 
-export {VerifyUser,Register,Login,Profile,ProductsCat}
+const Product = gql`query($productId: Int!){
+  Product(id: $productId) {
+    Statut,Message,data {
+      id,idCategorie,Name,NbBaskets,Statut,Description,SellerId
+    }
+  }
+}`
+
+export {VerifyUser,Register,Login,Profile,ProductsCat,Product}
