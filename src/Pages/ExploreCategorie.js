@@ -37,7 +37,8 @@ export default function ExploreCategorie() {
         </div>
         </div>
       
-      : <div> Pas de produits dans cette catégorie</div>} 
+      : <div> 
+        {!Products.loading ? <p>Pas de produits dans cette catégorie</p> : null}</div>} 
       {/* On mets une page spéciale */}
     </div>
   )
