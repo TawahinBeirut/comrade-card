@@ -28,6 +28,10 @@ export default function ExploreCategorie() {
             <Product el={el}/>
           ))
           }
+          {FilteredProducts.map(el =>(
+            <Product el={el}/>
+          ))
+          }
         </div>
         </div>
         </div>
