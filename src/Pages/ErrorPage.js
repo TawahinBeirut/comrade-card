@@ -18,6 +18,8 @@ export default function ErrorPage() {
                   break;
     case 'Email' : error = "Email déja utilisé"
                 break;
+    case 'NoProduct' : error = "Pas de Produits à ce nom";
+                break;
     default: error= `Erreur non reconnue : ${JSON.stringify(Error)} Rendez vous à la page d'accueil`
   }
 
