@@ -27,12 +27,6 @@ export default function ExploreCategorie() {
           {FilteredProducts.map(el =>(
             <Product el={el}/>
           ))
-          }{FilteredProducts.map(el =>(
-            <Product el={el}/>
-          ))
-          }{FilteredProducts.map(el =>(
-            <Product el={el}/>
-          ))
           }
         </div>
         </div>
