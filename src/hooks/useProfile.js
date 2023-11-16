@@ -44,7 +44,7 @@ const useProfile = (id) => {
                         Email: data2.data[0].Email,
                         Score: data2.data[0].Score
                     }
-                })
+                })  
             }
             else {
                 setResult({

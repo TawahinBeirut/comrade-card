@@ -11,7 +11,7 @@ export default function ExploreCategorie() {
     // On recupere l'id de la catégorie
     const {Categorie} = useParams();
     // On recupere tous les produits de la catégorie en Question
-    const Products = useProductsCat(Categorie)
+    const Products = useProductsCat()
     // On filtre notre liste
     const FilteredProducts = useFilter(Products.data,Categorie)
 
@@ -22,12 +22,9 @@ export default function ExploreCategorie() {
       {(FilteredProducts.length != 0) ? 
       // Style à regler, surtout avec le fond d'ecran
         <div className=' bg-Explore_Back bg-cover bg-repeat flex flex-col justify-between'>
-        <div className='flex justify-center border border-black p-2 mt-28 '>
-          <div className='w-3/4 bg-white flex flex-wrap justify-center p-3 gap-5'>
+        <div className='flex justify-center p-2 mt-28 '>
+          <div className='w-3/4 bg-white flex flex-wrap justify-center p-3 gap-5 rounded-xl drop-shadow-xl'>
           {FilteredProducts.map(el =>(
-            <Product el={el}/>
-          ))
-          }{FilteredProducts.map(el =>(
             <Product el={el}/>
           ))
           }{FilteredProducts.map(el =>(

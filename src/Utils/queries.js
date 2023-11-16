@@ -42,4 +42,5 @@ const Product = gql`query($productId: Int!){
   }
 }`
 
+
 export {VerifyUser,Register,Login,Profile,ProductsCat,Product}
